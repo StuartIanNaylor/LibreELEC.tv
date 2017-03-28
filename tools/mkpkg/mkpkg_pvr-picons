@@ -1,0 +1,113 @@
+#!/bin/sh
+################################################################################
+#      This file is part of LibreELEC - https://libreelec.tv
+#      Copyright (C) 2017-present Team LibreELEC
+#
+#  LibreELEC is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  LibreELEC is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
+################################################################################
+
+# check for  pngquant (for the image compression) and rsvg-convert (to convert svg to png)
+command -v pngquant >/dev/null 2>&1 || { echo >&2 " WARNING: pngquant is required \n sudo apt-get install pngquant \n"; exit 1; }
+command -v rsvg-convert >/dev/null 2>&1 || { echo >&2 " WARNING: librsvg2-bin is required \n sudo apt install librsvg2-bin \n"; exit 1; }
+
+pvr_start(){
+# remove old files
+echo "removing old sources ..."
+rm -rf picons/
+
+# create working dir
+mkdir picons && cd picons
+
+# set working dir var
+pvr_mkpkg_folder="$(pwd)"
+
+# get sources
+git clone --depth=1 https://github.com/picons/picons-source.git -b master picons-source
+
+cd $pvr_mkpkg_folder/picons-source
+git_rev=`git log -n1 --pretty=format:"%ad" --date=short`
+}
+
+pvr_zstd(){
+# get sources
+cd $pvr_mkpkg_folder
+git clone --depth=1 https://github.com/facebook/zstd.git -b v1.3.0 zstd >/dev/null 2>/dev/null
+cd zstd
+echo "compiling zstandard ..."
+make >/dev/null 2>/dev/null
+cp zstd $pvr_mkpkg_folder/zstd.bin
+}
+
+pvr_create(){
+cd $pvr_mkpkg_folder/picons-source
+
+# create default file
+# "size x size; padding x padding; light or default; transparent or background"
+echo "300x180;296x176;light;transparent" > build-input/backgrounds.conf
+
+# build the images
+./2-build-picons.sh $pvr-full
+
+# extract folder
+tar -xJf build-output/binaries-$pvr-full/$pvr-full.*.hardlink.tar.xz -C $pvr_mkpkg_folder
+cd $pvr_mkpkg_folder
+mv $pvr-full.* picons-$pvr-${git_rev}
+
+# compress it
+echo "compress the output folder to tar"
+tar -cf $pvr_mkpkg_folder/picons-$pvr-${git_rev}.tar picons-$pvr-${git_rev}
+
+echo "compress tar with zstandard"
+./zstd.bin -19 picons-$pvr-${git_rev}.tar
+mv picons-$pvr-${git_rev}.tar.zst ../.
+
+echo "compress tar with xz"
+xz -zke picons-$pvr-${git_rev}.tar
+mv picons-$pvr-${git_rev}.tar.xz ../.
+
+}
+
+case "$1" in
+  'all')
+    # prepare
+    pvr_start
+    pvr_zstd
+
+    # SNP naming
+    pvr="snp"
+    pvr_create
+    
+    # SRP naming
+    pvr="srp"
+    pvr_create
+  ;;
+  'snp')
+    # SNP naming
+    pvr="snp"
+    pvr_start
+    pvr_zstd
+    pvr_create
+  ;;
+  'srp')
+    # SRP naming
+    pvr="srp"
+    pvr_start
+    pvr_zstd
+    pvr_create
+  ;;
+  *)
+    echo "Usage: $0 ( all | srp | snp )"
+    exit 0
+  ;;
+esac
