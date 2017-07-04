@@ -24,6 +24,10 @@ oe_setup_addon service.tvheadend42
 
 ADDON_SETTINGS="$ADDON_HOME/settings.xml"
 
+COMSKIP_DIR="$ADDON_HOME/comskip"
+COMSKIP_SETTINGS_FILE="$COMSKIP_DIR/comskip.ini"
+COMSKIP_HELP_FILE="$COMSKIP_DIR/help.txt"
+
 DVR_SETTINGS_DIR="$ADDON_HOME/dvr/config"
 DVR_SETTINGS_FILE="$DVR_SETTINGS_DIR/8d0f5b7ae354d956d7fe5db25f5d0d24"
 
@@ -82,6 +86,16 @@ fi
 if [ ! -f "$XMLTV_SETTINGS_FILE" ]; then
   mkdir -p $XMLTV_SETTINGS_DIR
   cp $ADDON_DIR/defaults/xmltv/config $XMLTV_SETTINGS_FILE
+fi
+
+if [ ! -f "$COMSKIP_HELP_FILE" ]; then
+  mkdir -p $COMSKIP_DIR
+  cp $ADDON_DIR/defaults/comskip/help.txt $COMSKIP_HELP_FILE
+fi
+
+if [ ! -f "$COMSKIP_SETTINGS_FILE" ]; then
+  mkdir -p $COMSKIP_DIR
+  cp $ADDON_DIR/defaults/comskip/comskip.ini $COMSKIP_SETTINGS_FILE
 fi
 
 # delayed Tvh startup
