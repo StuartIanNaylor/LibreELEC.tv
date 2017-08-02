@@ -1,0 +1,57 @@
+From: Olli Salonen <olli.salonen@iki.fi>
+Date: Wed, 2 Aug 2017 19:14:32 +0200
+Subject: [PATCH] mn88472/3: set PLP reg to 0 if no PLP given
+
+---
+ drivers/media/dvb-frontends/mn88472.c | 4 +++-
+ drivers/media/dvb-frontends/mn88473.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/dvb-frontends/mn88472.c b/drivers/media/dvb-frontends/mn88472.c
+index 18fb2df..9757070 100644
+--- a/drivers/media/dvb-frontends/mn88472.c
++++ b/drivers/media/dvb-frontends/mn88472.c
+@@ -255,7 +255,9 @@ static int mn88472_set_frontend(struct dvb_frontend *fe)
+ 		ret = regmap_write(dev->regmap[1], 0xf6, 0x05);
+ 		if (ret)
+ 			goto err;
+-		ret = regmap_write(dev->regmap[2], 0x32, c->stream_id);
++		ret = regmap_write(dev->regmap[2], 0x32,
++				(c->stream_id == NO_STREAM_ID_FILTER) ? 0 :
++				c->stream_id );
+ 		if (ret)
+ 			goto err;
+ 		break;
+diff --git a/drivers/media/dvb-frontends/mn88473.c b/drivers/media/dvb-frontends/mn88473.c
+index 451974a..ef42ad2 100644
+--- a/drivers/media/dvb-frontends/mn88473.c
++++ b/drivers/media/dvb-frontends/mn88473.c
+@@ -223,6 +223,15 @@ static int mn88473_set_frontend(struct dvb_frontend *fe)
+ 	if (ret)
+ 		goto err;
+ 
++	/* PLP */
++	if (c->delivery_system == SYS_DVBT2) {
++		ret = regmap_write(dev->regmap[2], 0x36,
++				(c->stream_id == NO_STREAM_ID_FILTER) ? 0 :
++				c->stream_id );
++		if (ret)
++			goto err;
++	}
++
+ 	/* Reset FSM */
+ 	ret = regmap_write(dev->regmap[2], 0xf8, 0x9f);
+ 	if (ret)
+@@ -429,7 +438,8 @@ static const struct dvb_frontend_ops mn88473_ops = {
+ 			FE_CAN_GUARD_INTERVAL_AUTO     |
+ 			FE_CAN_HIERARCHY_AUTO          |
+ 			FE_CAN_MUTE_TS                 |
+-			FE_CAN_2G_MODULATION
++			FE_CAN_2G_MODULATION           |
++			FE_CAN_MULTISTREAM
+ 	},
+ 
+ 	.get_tune_settings = mn88473_get_tune_settings,
+-- 
+2.7.4
+
