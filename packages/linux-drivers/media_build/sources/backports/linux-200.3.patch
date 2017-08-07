@@ -1,0 +1,24 @@
+From 03911b0b069385a882c9cf4e60e37e1e66ed7f64 Mon Sep 17 00:00:00 2001
+From: Olli Salonen <olli.salonen@iki.fi>
+Date: Mon, 31 Jul 2017 14:25:05 +0300
+Subject: [PATCH] mn88472: set PLP reg to 0 if no PLP given
+
+---
+ drivers/media/dvb-frontends/mn88472.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-frontends/mn88472.c b/drivers/media/dvb-frontends/mn88472.c
+index f6938f9607ac..5e8fd63832e9 100644
+--- a/drivers/media/dvb-frontends/mn88472.c
++++ b/drivers/media/dvb-frontends/mn88472.c
+@@ -377,7 +377,9 @@ static int mn88472_set_frontend(struct dvb_frontend *fe)
+ 		ret = regmap_write(dev->regmap[1], 0xf6, 0x05);
+ 		if (ret)
+ 			goto err;
+-		ret = regmap_write(dev->regmap[2], 0x32, c->stream_id);
++		ret = regmap_write(dev->regmap[2], 0x32,
++				(c->stream_id == NO_STREAM_ID_FILTER) ? 0 :
++				c->stream_id );
+ 		if (ret)
+ 			goto err;
+ 		break;

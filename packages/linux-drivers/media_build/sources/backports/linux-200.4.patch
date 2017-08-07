@@ -1,0 +1,24 @@
+From 4df4b1ea632e7af561f405bc799b3f37cd504c43 Mon Sep 17 00:00:00 2001
+From: Olli Salonen <olli.salonen@iki.fi>
+Date: Mon, 31 Jul 2017 14:25:38 +0300
+Subject: [PATCH] mn88473: set PLP reg to 0 if no PLP given
+
+---
+ drivers/media/dvb-frontends/mn88473.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-frontends/mn88473.c b/drivers/media/dvb-frontends/mn88473.c
+index 15874244fd8b..58247432a628 100644
+--- a/drivers/media/dvb-frontends/mn88473.c
++++ b/drivers/media/dvb-frontends/mn88473.c
+@@ -225,7 +225,9 @@ static int mn88473_set_frontend(struct dvb_frontend *fe)
+ 
+ 	/* PLP */
+ 	if (c->delivery_system == SYS_DVBT2) {
+-		ret = regmap_write(dev->regmap[2], 0x36, c->stream_id);
++		ret = regmap_write(dev->regmap[2], 0x36,
++				(c->stream_id == NO_STREAM_ID_FILTER) ? 0 :
++				c->stream_id );
+ 		if (ret)
+ 			goto err;
+ 	}
