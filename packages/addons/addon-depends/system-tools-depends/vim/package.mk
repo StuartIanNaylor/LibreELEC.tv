@@ -22,7 +22,7 @@ PKG_ARCH="any"
 PKG_LICENSE="VIM"
 PKG_SITE="http://www.vim.org/"
 PKG_URL="https://github.com/vim/vim/archive/v$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain netbsd-curses"
+PKG_DEPENDS_TARGET="toolchain ncurses"
 PKG_SECTION="tools"
 PKG_SHORTDESC="vim: VI IMproved"
 PKG_LONGDESC="Vim is a highly configurable text editor built to enable efficient text editing."
@@ -48,7 +48,6 @@ PKG_CONFIGURE_OPTS_TARGET="vim_cv_getcwd_broken=no \
 pre_configure_target() {
   cd ..
   rm -rf .$TARGET_NAME
-  export LIBS="-lcurses -lterminfo"
 }
 
 make_target() {
