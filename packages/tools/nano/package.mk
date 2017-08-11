@@ -22,7 +22,7 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.nano-editor.org/"
 PKG_URL="http://ftpmirror.gnu.org/nano/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain netbsd-curses"
+PKG_DEPENDS_TARGET="toolchain ncurses"
 PKG_SECTION="shell/texteditor"
 PKG_SHORTDESC="nano: Pico editor clone with enhancements"
 PKG_LONGDESC="GNU nano (Nano's ANOther editor, or Not ANOther editor) is an enhanced clone of the Pico text editor."
@@ -33,6 +33,10 @@ PKG_AUTORECONF="no"
 PKG_CONFIGURE_OPTS_TARGET="--disable-utf8 \
                            --disable-nls \
                            --disable-libmagic"
+
+pre_configure_target() {
+  export CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include/ncurses"
+}
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/share/nano
