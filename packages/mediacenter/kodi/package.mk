@@ -248,6 +248,7 @@ pre_configure_target() {
 # kodi should never be built with lto
   strip_lto
 
+  export LIBS="-lncurses"
 }
 
 post_makeinstall_target() {
