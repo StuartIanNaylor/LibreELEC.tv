@@ -38,7 +38,8 @@ PKG_CONFIGURE_OPTS_TARGET="--without-ada \
                            --without-manpages \
                            --without-progs \
                            --without-tests \
-                           --with-shared \
+                           --without-shared \
+                           --with-normal \
                            --without-debug \
                            --without-profile \
                            --without-termlib \
@@ -47,6 +48,7 @@ PKG_CONFIGURE_OPTS_TARGET="--without-ada \
                            --without-dbmalloc \
                            --without-dmalloc \
                            --disable-rpath \
+                           --disable-overwrite \
                            --disable-database \
                            --with-fallbacks=linux,screen,xterm,xterm-color \
                            --disable-big-core \
@@ -78,11 +80,15 @@ PKG_CONFIGURE_OPTS_TARGET="--without-ada \
 pre_configure_target() {
   # causes some segmentation fault's (dialog) when compiled with gcc's link time optimization.
   strip_lto
+    CFLAGS="$CFLAGS -fPIC"
 }
 
 post_makeinstall_target() {
   cp misc/ncurses-config $TOOLCHAIN/bin
-  chmod +x $TOOLCHAIN/bin/ncurses-config
-  $SED "s:\(['=\" ]\)/usr:\\1$SYSROOT_PREFIX/usr:g" $TOOLCHAIN/bin/ncurses-config
-  rm -rf $INSTALL/usr/bin
+    chmod +x $TOOLCHAIN/bin/ncurses-config
+    $SED "s:\(['=\" ]\)/usr:\\1$SYSROOT_PREFIX/usr:g" $TOOLCHAIN/bin/ncurses-config
+  ln -sf ncurses-config $TOOLCHAIN/bin/ncurses5-config
+  ln -sf ncurses5-config $TOOLCHAIN/bin/ncurses6-config
+
+  rm -rf $INSTALL/usr/bin/ncurses*-config
 }
