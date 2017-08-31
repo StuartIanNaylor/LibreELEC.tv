@@ -17,36 +17,61 @@
 ################################################################################
 
 PKG_NAME="tvheadend42"
-PKG_VERSION="407c8a3"
-PKG_VERSION_NUMBER="4.2.3-20"
+PKG_VERSION="3e2ac87"
+PKG_VERSION_NUMBER="4.3.999"
 PKG_REV="112"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.tvheadend.org"
 PKG_URL="https://github.com/tvheadend/tvheadend/archive/$PKG_VERSION.tar.gz"
 PKG_SOURCE_DIR="tvheadend-${PKG_VERSION}*"
-PKG_DEPENDS_TARGET="toolchain curl dvb-tools libdvbcsa libiconv openssl pngquant:host Python:host yasm"
+PKG_DEPENDS_TARGET="toolchain curl dvb-tools libdvbcsa libiconv openssl pngquant:host Python:host bzip2 ffmpegx opus"
 PKG_SECTION="service"
 PKG_SHORTDESC="Tvheadend: a TV streaming server for Linux"
 PKG_LONGDESC="Tvheadend ($PKG_VERSION_NUMBER): is a TV streaming server for Linux supporting DVB-S/S2, DVB-C, DVB-T/T2, IPTV, SAT>IP, ATSC and ISDB-T"
 PKG_AUTORECONF="no"
 
 PKG_IS_ADDON="yes"
-PKG_ADDON_NAME="Tvheadend Server 4.2"
+PKG_ADDON_NAME="Tvheadend Server 4.3"
 PKG_ADDON_TYPE="xbmc.service"
+
+# transcoding options
+TVH_TRANSCODING="\
+  --disable-ffmpeg_static \
+  --disable-libfdkaac_static \
+  --disable-libopus_static \
+  --disable-libtheora \
+  --disable-libvorbis_static \
+  --disable-libvpx_static \
+  --disable-libx264_static \
+  --disable-libx265_static \
+  --enable-libav \
+  --enable-libopus \
+  --enable-libvorbis \
+  --enable-libvpx \
+  --enable-libx264 \
+  --enable-libx265"
+
 
 # transcoding only for generic
 if [ "$TARGET_ARCH" = x86_64 ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libva-intel-driver"
-  TVH_TRANSCODING="--enable-ffmpeg_static --enable-libav --enable-libfdkaac --disable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --disable-qsv"
-else
-  TVH_TRANSCODING="--disable-ffmpeg_static --disable-libav"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libva-intel-driver yasm" # intel-vaapi-driver for master
+  TVH_TRANSCODING="$TVH_TRANSCODING \
+    --enable-vaapi"
+fi
+
+if [[ "$PROJECT" =~ "RPi" ]]; then
+  TVH_TRANSCODING="$TVH_TRANSCODING \
+    --disable-libx265 \
+    --enable-mmal \
+    --enable-omx"
 fi
 
 PKG_CONFIGURE_OPTS_TARGET="--prefix=/usr \
                            --arch=$TARGET_ARCH \
                            --cpu=$TARGET_CPU \
                            --cc=$CC \
+                           $TVH_TRANSCODING \
                            --disable-avahi \
                            --enable-bundle \
                            --disable-dbus_1 \
@@ -59,7 +84,7 @@ PKG_CONFIGURE_OPTS_TARGET="--prefix=/usr \
                            --enable-pngquant \
                            --disable-nvenc \
                            --disable-uriparser \
-                           $TVH_TRANSCODING \
+                           --disable-pcre2 \
                            --enable-tvhcsa \
                            --enable-trace \
                            --nowerror \
@@ -72,6 +97,20 @@ post_unpack() {
 }
 
 pre_configure_target() {
+# pass ffmpegx to build
+
+  #hack to avoid missing includes "... ld.gold error cannot find -lavfilter"
+  strip_gold
+  strip_lto
+
+  PKG_CONFIG_PATH="$(get_build_dir ffmpegx)/.install_pkg/usr/local/lib/pkgconfig"
+  CFLAGS="$CFLAGS -I$(get_build_dir ffmpegx)"
+
+# hacky hack or "CFLAGS="$CFLAGS -I$(get_build_dir ffmpegx)"" includes wrong stuff
+if [ -f "$(get_build_dir ffmpegx)/config.h" ]; then
+  rm $(get_build_dir ffmpegx)/config.h
+fi
+
 # fails to build in subdirs
   cd $PKG_BUILD
   rm -rf .$TARGET_NAME
@@ -79,11 +118,11 @@ pre_configure_target() {
 # transcoding
   if [ "$TARGET_ARCH" = x86_64 ]; then
     export AS=$TOOLCHAIN/bin/yasm
-    export LDFLAGS="$LDFLAGS -lX11 -lm -lvdpau -lva -lva-drm -lva-x11"
+    export LDFLAGS="$LDFLAGS -lX11 -lm -lvdpau -lva -lva-drm -lva-x11 -lbz2"
     export ARCH=$TARGET_ARCH
   fi
 
-  export CROSS_COMPILE=$TARGET_PREFIX
+  export CROSS_COMPILE="$TARGET_PREFIX"
   export CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include/iconv -L$SYSROOT_PREFIX/usr/lib/iconv"
 }
 
