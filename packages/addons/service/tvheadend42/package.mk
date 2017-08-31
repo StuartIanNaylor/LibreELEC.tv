@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="tvheadend42"
-PKG_VERSION="407c8a3"
-PKG_VERSION_NUMBER="4.2.3-20"
+PKG_VERSION="c93283c"
+PKG_VERSION_NUMBER="4.3.999"
 PKG_REV="112"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -32,13 +32,13 @@ PKG_LONGDESC="Tvheadend ($PKG_VERSION_NUMBER): is a TV streaming server for Linu
 PKG_AUTORECONF="no"
 
 PKG_IS_ADDON="yes"
-PKG_ADDON_NAME="Tvheadend Server 4.2"
+PKG_ADDON_NAME="Tvheadend Server 4.3"
 PKG_ADDON_TYPE="xbmc.service"
 
 # transcoding only for generic
 if [ "$TARGET_ARCH" = x86_64 ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libva-intel-driver"
-  TVH_TRANSCODING="--enable-ffmpeg_static --enable-libav --enable-libfdkaac --disable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --disable-qsv"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libva-intel-driver bzip2"
+  TVH_TRANSCODING="--enable-ffmpeg_static --enable-libav --enable-vaapi --disable-libfdkaac --disable-libopus --disable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --disable-qsv"
 else
   TVH_TRANSCODING="--disable-ffmpeg_static --disable-libav"
 fi
@@ -79,7 +79,7 @@ pre_configure_target() {
 # transcoding
   if [ "$TARGET_ARCH" = x86_64 ]; then
     export AS=$TOOLCHAIN/bin/yasm
-    export LDFLAGS="$LDFLAGS -lX11 -lm -lvdpau -lva -lva-drm -lva-x11"
+    export LDFLAGS="$LDFLAGS -lX11 -lm -lvdpau -lva -lva-drm -lva-x11 -lbz2"
     export ARCH=$TARGET_ARCH
   fi
 

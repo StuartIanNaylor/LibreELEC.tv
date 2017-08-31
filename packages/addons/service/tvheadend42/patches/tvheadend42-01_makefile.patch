@@ -1,12 +1,12 @@
 From: Team LibreELEC - https://LibreELEC.tv
-Subject: adjust Tvheadend ffmpeg build to work with LibreELEC (transcoding) 07.05.2016
+Subject: adjust Tvheadend ffmpeg build to work with LibreELEC (transcoding) 31.08.2017
 
 ---
 
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -97,50 +97,65 @@ FFMPEG_CONFIG := \
+@@ -105,50 +105,65 @@ FFMPEG_CONFIG := \
      PKG_CONFIG_LIBDIR=$(FFMPEG_LIBDIR)/pkgconfig $(PKG_CONFIG) \
      --define-variable=prefix=$(FFMPEG_PREFIX) --static
  
@@ -58,9 +58,9 @@ diff --git a/Makefile b/Makefile
 +LDFLAGS += ${FFMPEG_LIBDIR}/libfdk-aac.a
  endif
  
- ifeq ($(CONFIG_LIBMFX_STATIC),yes)
- FFMPEG_DEPS += libmfx
-+LDFLAGS += ${FFMPEG_LIBDIR}/libmfx.a
+ ifeq ($(CONFIG_LIBOPUS_STATIC),yes)
+ FFMPEG_DEPS += libopus
++LDFLAGS += ${FFMPEG_LIBDIR}/libopus.a
  endif
  
 -LDFLAGS += $(foreach lib,$(FFMPEG_LIBS),$(FFMPEG_LIBDIR)/$(lib).a)
@@ -78,7 +78,7 @@ diff --git a/Makefile b/Makefile
  endif
  
  # LIBAV ########################################################################
-@@ -613,7 +628,7 @@ reconfigure:
+@@ -677,7 +692,7 @@ reconfigure:
  
  # Binary
  ${PROG}: .config.mk make_webui $(OBJS)
