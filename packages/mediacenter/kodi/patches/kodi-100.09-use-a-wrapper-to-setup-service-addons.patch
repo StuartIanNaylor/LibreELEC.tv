@@ -1,13 +1,13 @@
 diff --git a/xbmc/addons/Addon.cpp b/xbmc/addons/Addon.cpp
-index 45f42ad2e3..ce10080469 100644
+index a9ffe7f741..edc5304082 100644
 --- a/xbmc/addons/Addon.cpp
 +++ b/xbmc/addons/Addon.cpp
-@@ -397,13 +397,48 @@ AddonVersion CAddon::GetDependencyVersion(const std::string &dependencyID) const
+@@ -340,10 +340,46 @@ AddonVersion CAddon::GetDependencyVersion(const std::string &dependencyID) const
    return AddonVersion("0.0.0");
  }
  
-+void LEAddonHook(const AddonPtr& addon, const LE_ADDON_CONTEXT context) {
-+
++void LEAddonHook(const AddonPtr& addon, const LE_ADDON_CONTEXT context)
++{
 +  if (addon->Type() == ADDON_SERVICE) {
 +    std::string contextStr;
 +    char cmd[255];
@@ -37,41 +37,53 @@ index 45f42ad2e3..ce10080469 100644
 +  }
 +}
 +
- void OnEnabled(const AddonPtr& addon)
- {
-+  LEAddonHook(addon, LE_ADDON_ENABLED);
 +
-   addon->OnEnabled();
- }
- 
- void OnDisabled(const AddonPtr& addon)
+ void OnEnabled(const std::string& id)
  {
-+  LEAddonHook(addon, LE_ADDON_DISABLED);
+   // If the addon is a special, call enabled handler
+   AddonPtr addon;
 +
-   addon->OnDisabled();
- }
++  if (CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_SERVICE))
++    LEAddonHook(addon, LE_ADDON_ENABLED);
++
+   if (CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_PVRDLL) ||
+       CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_ADSPDLL) ||
+       CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_PERIPHERALDLL))
+@@ -363,6 +399,10 @@ void OnDisabled(const std::string& id)
+ {
  
-@@ -438,11 +476,15 @@ void OnPostInstall(const AddonPtr& addon, bool update, bool modal)
-   }
-   // OE
- 
+   AddonPtr addon;
++
++  if (CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_SERVICE, false))
++    LEAddonHook(addon, LE_ADDON_DISABLED);
++
+   if (CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_PVRDLL, false) ||
+       CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_ADSPDLL, false) ||
+       CAddonMgr::GetInstance().GetAddon(id, addon, ADDON_PERIPHERALDLL, false))
+@@ -401,6 +441,9 @@ void OnPreInstall(const AddonPtr& addon)
+ void OnPostInstall(const AddonPtr& addon, bool update, bool modal)
+ {
+   AddonPtr localAddon;
++
 +  LEAddonHook(addon, LE_ADDON_POST_INSTALL);
 +
-   addon->OnPostInstall(update, modal);
- }
- 
- void OnPreUnInstall(const AddonPtr& addon)
+   if (CAddonMgr::GetInstance().ServicesHasStarted())
+   {
+     if (CAddonMgr::GetInstance().GetAddon(addon->ID(), localAddon, ADDON_SERVICE))
+@@ -417,6 +460,8 @@ void OnPreUnInstall(const AddonPtr& addon)
  {
+   AddonPtr localAddon;
+ 
 +  LEAddonHook(addon, LE_ADDON_PRE_UNINSTALL);
 +
-   addon->OnPreUnInstall();
- }
- 
+   if (CAddonMgr::GetInstance().ServicesHasStarted())
+   {
+     if (CAddonMgr::GetInstance().GetAddon(addon->ID(), localAddon, ADDON_SERVICE))
 diff --git a/xbmc/addons/Addon.h b/xbmc/addons/Addon.h
-index 95f3f23437..23ad39116a 100644
+index 515afe1283..5306b7304a 100644
 --- a/xbmc/addons/Addon.h
 +++ b/xbmc/addons/Addon.h
-@@ -43,6 +43,15 @@ void OnPostInstall(const AddonPtr& addon, bool update, bool modal);
+@@ -52,6 +52,14 @@ void OnPostInstall(const AddonPtr& addon, bool update, bool modal);
  void OnPreUnInstall(const AddonPtr& addon);
  void OnPostUnInstall(const AddonPtr& addon);
  
@@ -83,7 +95,6 @@ index 95f3f23437..23ad39116a 100644
 +} LE_ADDON_CONTEXT;
 +
 +void LEAddonHook(const AddonPtr& addon, const LE_ADDON_CONTEXT context);
-+
- class CAddon : public IAddon
+ 
+ class AddonProps
  {
- public:
