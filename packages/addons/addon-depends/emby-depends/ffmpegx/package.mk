@@ -17,18 +17,24 @@
 ################################################################################
 
 PKG_NAME="ffmpegx"
-PKG_VERSION="libreelec"
-PKG_REV="9"
+PKG_VERSION="3.3.4"
+PKG_SHA256="91452df51865842ae85db48470fddfcd4dc8ad9ab14f2bf7f1ebd0ec225e8c85"
+PKG_ARCH="any"
 PKG_LICENSE="LGPLv2.1+"
 PKG_SITE="https://ffmpeg.org"
-PKG_DEPENDS_TARGET="toolchain ffmpeg lame x264"
-PKG_LONGDESC="FFmpeg built static with additional features"
+PKG_URL="https://github.com/FFmpeg/FFmpeg/archive/n${PKG_VERSION}.tar.gz"
+PKG_SOURCE_DIR="FFmpeg-n${PKG_VERSION}"
+PKG_DEPENDS_TARGET="toolchain zlib bzip2 openssl libvpx libvorbis x264 x265"
+PKG_SECTION="multimedia"
+PKG_LONGDESC="FFmpegx is an complete FFmpeg build to support en/decoding"
+PKG_AUTORECONF="no"
+
+# Dependencies
+get_graphicdrivers
 
 pre_configure_target() {
-  cd "$PKG_BUILD"
-  rm -rf ".$TARGET_NAME"
-  cp -PR $(get_build_dir ffmpeg)/* .
-  make clean
+  cd $PKG_BUILD
+  rm -rf .$TARGET_NAME
 
 # ffmpeg builds better with these options
   strip_gold
@@ -37,7 +43,6 @@ pre_configure_target() {
   if [ "$KODIPLAYER_DRIVER" == "bcm2835-driver" ]; then
     CFLAGS="-DRPI=1 -I$SYSROOT_PREFIX/usr/include/IL -I$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads -I$SYSROOT_PREFIX/usr/include/interface/vmcs_host/linux $CFLAGS"
     FFMPEG_LIBS="-lbcm_host -ldl -lmmal -lmmal_core -lmmal_util -lvchiq_arm -lvcos -lvcsm"
-    FFMPEG_RPI_HADE="--enable-mmal --enable-omx-rpi"
   fi
 
 # ffmpeg does not build with libx264 on aarch64
@@ -48,10 +53,84 @@ pre_configure_target() {
   if [ "$TARGET_ARCH" == "arm" ]; then
     FFMPEG_ARM_AO="--enable-hardcoded-tables"
   fi
+
+# HW encoders
+
+  # RPi 0-3
+  if [ "$KODIPLAYER_DRIVER" == "bcm2835-driver" ]; then
+    FFMPEG_HW_ENCODERS_RPi="\
+    `#Video encoders` \
+    --enable-omx-rpi \
+    --enable-encoder=h264_omx \
+    \
+    `#Video hwaccel` \
+    --enable-mmal \
+    --enable-hwaccel=h264_mmal \
+    --enable-hwaccel=mpeg2_mmal \
+    --enable-hwaccel=mpeg4_mmal \
+    --enable-hwaccel=vc1_mmal"
+  fi
+
+  # Generic
+  if [[ "$TARGET_ARCH" = "x86_64" ]]; then
+    FFMPEG_HW_ENCODERS_GENERIC="\
+    `#Video encoders` \
+    --enable-encoder=h264_nvenc \
+    --enable-encoder=h264_vaapi \
+    --enable-encoder=hevc_nvenc \
+    --enable-encoder=hevc_vaapi \
+    --enable-encoder=mjpeg_vaapi \
+    --enable-encoder=mpeg2_vaapi \
+    --enable-encoder=vp8_vaapi \
+    \
+    `#Video hwaccel` \
+    --enable-hwaccel=h263_vaapi \
+    --enable-hwaccel=h264_vaapi \
+    --enable-hwaccel=hevc_vaapi \
+    --enable-hwaccel=mpeg2_vaapi \
+    --enable-hwaccel=mpeg4_vaapi \
+    --enable-hwaccel=vc1_vaapi \
+    --enable-hwaccel=vp9_vaapi \
+    --enable-hwaccel=wmv3_vaapi"
+  fi
+
+# Encoders
+    FFMPEG_ENCODERS="\
+    `#Video encoders` \
+    --enable-libvpx \
+    --enable-encoder=libvpx_vp8 \
+    --enable-encoder=libvpx_vp8 \
+    $FFMPEG_X264 \
+    --enable-encoder=x264 \
+    --enable-libx265 \
+    --enable-encoder=x265 \
+    \
+    `#Audio encoders` \
+    --enable-encoder=ac3 \
+    --enable-encoder=aac \
+    --enable-encoder=eac3 \
+    --enable-encoder=flac \
+    --enable-libmp3lame \
+    --enable-encoder=libmp3lame \
+    --enable-libopus \
+    --enable-encoder=libopus \
+    --enable-libvorbis \
+    --enable-encoder=libvorbis"
+
 }
 
 configure_target() {
   ./configure \
+    \
+    `#Programs to build` \
+    --enable-ffmpeg \
+    --disable-ffplay \
+    --enable-ffprobe \
+    --disable-ffserver \
+    \
+    `#Static and Shared` \
+    --enable-static \
+    --disable-shared \
     \
     `#Licensing options` \
     --enable-gpl \
@@ -61,12 +140,11 @@ configure_target() {
     --disable-doc \
     \
     `#Hardware accelerated decoding encoding` \
-    $FFMPEG_RPI_HADE \
+    $FFMPEG_HWENCODERS_RPi \
+    $FFMPEG_HW_ENCODERS_GENERIC \
     \
-    `#External library support` \
-    --enable-libmp3lame \
-    $FFMPEG_X264 \
-    --enable-openssl \
+    `#General options` \
+    --enable-avresample \
     \
     `#Toolchain options` \
     --arch="$TARGET_ARCH" \
@@ -91,6 +169,7 @@ configure_target() {
     --extra-libs="$FFMPEG_LIBS" \
     --extra-version="x" \
     --enable-pic \
+    --enable-openssl \
     \
     `#Advanced options` \
     $FFMPEG_ARM_AO \
