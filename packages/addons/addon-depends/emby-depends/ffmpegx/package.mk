@@ -32,6 +32,10 @@ PKG_AUTORECONF="no"
 # Dependencies
 get_graphicdrivers
 
+if [ "$KODIPLAYER_DRIVER" = "bcm2835-driver" ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET bcm2835-driver"
+fi
+
 pre_configure_target() {
   cd $PKG_BUILD
   rm -rf .$TARGET_NAME
@@ -177,11 +181,9 @@ configure_target() {
 }
 
 makeinstall_target() {
-  make install DESTDIR=$INSTALL
+  make install DESTDIR="$INSTALL/../.INSTALL_PKG"
 }
 
 post_makeinstall_target() {
-  for ff in $INSTALL/usr/local/bin/*; do mv $ff ${ff}x; done
-  rm -fr $INSTALL/usr/local/include
-  rm -fr $INSTALL/usr/local/share/ffmpeg/examples
+  for ff in "$INSTALL/../.INSTALL_PKG/usr/local/bin/"*; do mv "$ff" "${ff}x"; done
 }
