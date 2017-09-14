@@ -99,17 +99,9 @@ post_unpack() {
 pre_configure_target() {
 # pass ffmpegx to build
 
-  #hack to avoid missing includes "... ld.gold error cannot find -lavfilter"
-  strip_gold
-  strip_lto
-
-  PKG_CONFIG_PATH="$(get_build_dir ffmpegx)/.install_pkg/usr/local/lib/pkgconfig"
-  CFLAGS="$CFLAGS -I$(get_build_dir ffmpegx)"
-
-# hacky hack or "CFLAGS="$CFLAGS -I$(get_build_dir ffmpegx)"" includes wrong stuff
-if [ -f "$(get_build_dir ffmpegx)/config.h" ]; then
-  rm $(get_build_dir ffmpegx)/config.h
-fi
+  PKG_CONFIG_PATH="$(get_build_dir ffmpegx)/.INSTALL_PKG/usr/local/lib/pkgconfig"
+  CFLAGS="$CFLAGS -I$(get_build_dir ffmpegx)/.INSTALL_PKG/usr/local/include/"
+  LDFLAGS="$LDFLAGS -L$(get_build_dir ffmpegx)/.INSTALL_PKG/usr/local/lib"
 
 # fails to build in subdirs
   cd $PKG_BUILD
