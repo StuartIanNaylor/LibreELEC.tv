@@ -24,7 +24,7 @@ PKG_LICENSE="LGPLv2.1+"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://github.com/FFmpeg/FFmpeg/archive/n${PKG_VERSION}.tar.gz"
 PKG_SOURCE_DIR="FFmpeg-n${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain zlib bzip2 openssl libvpx libvorbis x264 x265"
+PKG_DEPENDS_TARGET="toolchain zlib bzip2 openssl fdk-aac libvpx libvorbis x264 x265"
 PKG_SECTION="multimedia"
 PKG_LONGDESC="FFmpegx is an complete FFmpeg build to support en/decoding"
 PKG_AUTORECONF="no"
@@ -111,8 +111,9 @@ pre_configure_target() {
     \
     `#Audio encoders` \
     --enable-encoder=ac3 \
-    --enable-encoder=aac \
     --enable-encoder=eac3 \
+    --enable-libfdk-aac \
+    --enable-encoder=libfdk-aac \
     --enable-encoder=flac \
     --enable-libmp3lame \
     --enable-encoder=libmp3lame \

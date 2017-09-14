@@ -41,11 +41,13 @@ TVH_TRANSCODING="\
   --disable-libfdkaac_static \
   --disable-libopus_static \
   --disable-libtheora \
+  --disable-libtheora_static \
   --disable-libvorbis_static \
   --disable-libvpx_static \
   --disable-libx264_static \
   --disable-libx265_static \
   --enable-libav \
+  --enable-libfdkaac \
   --enable-libopus \
   --enable-libvorbis \
   --enable-libvpx \
