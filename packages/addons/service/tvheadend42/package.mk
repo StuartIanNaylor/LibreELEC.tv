@@ -56,8 +56,9 @@ PKG_TVH_TRANSCODING="\
   --enable-libx265"
 
 # specific transcoding options
-if [[ "$PROJECT" =~ "RPi" ]]; then
+if [[ "$TARGET_ARCH" != "x86_64" ]]; then
   PKG_TVH_TRANSCODING="$PKG_TVH_TRANSCODING \
+    --disable-libvpx \
     --disable-libx265"
 fi
 

@@ -24,7 +24,7 @@ PKG_LICENSE="LGPLv2.1+"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://github.com/FFmpeg/FFmpeg/archive/n${PKG_VERSION}.tar.gz"
 PKG_SOURCE_DIR="FFmpeg-n${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain bzip2 fdk-aac libvorbis libvpx openssl opus x264 x265 zlib"
+PKG_DEPENDS_TARGET="toolchain bzip2 fdk-aac libvorbis openssl opus x264 x265 zlib"
 PKG_SECTION="multimedia"
 PKG_LONGDESC="FFmpegx is an complete FFmpeg build to support encoding and decoding"
 PKG_AUTORECONF="no"
@@ -34,6 +34,10 @@ get_graphicdrivers
 
 if [ "$KODIPLAYER_DRIVER" == "bcm2835-driver" ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET bcm2835-driver"
+fi
+
+if [[ ! $TARGET_ARCH = arm ]] || target_has_feature neon; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libvpx"
 fi
 
 pre_configure_target() {
