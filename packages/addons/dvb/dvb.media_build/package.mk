@@ -17,11 +17,11 @@
 ################################################################################
 
 PKG_NAME="dvb.media_build"
-PKG_VERSION="96c1c79" # https://git.linuxtv.org/media_build.git/
-PKG_SHA256="7d0b7f8ead551f4a9a6660d81f3d1fc82ff773aa461ae156d9155f926823e2b6"
+PKG_VERSION="c935349" # https://git.linuxtv.org/media_build.git/
+PKG_SHA256="37a5121ee81a5f2c5380ad369058b8aa74f93d25c4bec79ee1add03b9ef6a634"
 
 # chose media_tree http://linuxtv.org/downloads/drivers/
-MEDIA_BUILD_VERSION="2017-08-23-fce4b371fe5c"
+MEDIA_BUILD_VERSION="2017-10-17-bbae61563615"
 
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -43,7 +43,7 @@ PKG_ADDON_VERSION="${ADDON_VERSION}.${PKG_REV}"
 pre_make_target() {
   export KERNEL_VER=$(get_module_dir)
   export LDFLAGS=""
-  
+
   $SED -i  -e "/^LATEST_TAR/s/-LATEST/-$MEDIA_BUILD_VERSION/g" linux/Makefile
 }
 

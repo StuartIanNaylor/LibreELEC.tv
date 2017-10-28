@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="dvb.crazycat"
-PKG_VERSION="2017-09-20"
-PKG_SHA256="46ab8054cc049c4c64584bcb888d2fd0c71dea598c4302b080f4908e1335e026"
+PKG_VERSION="2017-10-20"
+PKG_SHA256="ef238bda46e0e6ce633de830116e071a53915e45837bd1cefa3a43f8ca4c2a41"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/crazycat69/linux_media"

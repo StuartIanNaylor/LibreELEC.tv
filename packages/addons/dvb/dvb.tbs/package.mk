@@ -1,6 +1,6 @@
 ################################################################################
 #      This file is part of LibreELEC - https://LibreELEC.tv
-#      Copyright (C) 2016 Team LibreELEC
+#      Copyright (C) 2016-present Team LibreELEC
 #
 #  LibreELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="dvb.tbs"
-PKG_VERSION="2017-08-29"
-PKG_SHA256="3ede252ae390faba7d1356899d0c00ab6a68baede38ca0ab33f3f6f05ac8f72c"
+PKG_VERSION="2017-10-27"
+PKG_SHA256="0ef527a46855c9601d1ae92c39606d46784d0a3b2d63066a25868f312666ae0c"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/tbsdtv/linux_media"
