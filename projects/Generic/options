@@ -88,4 +88,4 @@
     ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS bcm_sta"
 
   # include crazycat drivers addon in image
-    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS dvb.crazycat dvb.tbs dvb.media_build dvb.digital_devices driverselect"
+    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS dvb.crazycat dvb.tbs dvb.media_build dvb.digital_devices dvb.hauppauge driverselect"
