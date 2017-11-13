@@ -134,4 +134,4 @@
     ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS rpi-cirrus-config"
 
   # include crazycat drivers addon in image
-    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS dvb.crazycat dvb.tbs dvb.media_build dvb.digital_devices driverselect"
+    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS dvb.crazycat dvb.tbs dvb.media_build dvb.hauppauge driverselect"

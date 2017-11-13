@@ -45,7 +45,7 @@ makeinstall_target() {
   ADDON_DIR="$INSTALL/usr/share/$MEDIACENTER/addons/$PKG_ADDON_ID"
 
   mkdir -p $MODULE_DIR
-  find $PKG_BUILD/frontends/ -name \*.ko -exec cp {} $MODULE_DIR \;
+  find $PKG_BUILD/ddbridge $PKG_BUILD/dvb-core $PKG_BUILD/frontends -name \*.ko -exec cp {} $MODULE_DIR \;
 
   find $MODULE_DIR -name \*.ko -exec $STRIP --strip-debug {} \;
 
