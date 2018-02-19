@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="hauppauge"
-PKG_VERSION="f5a5e5e"
-PKG_SHA256="6a3167c9990fa96838f4746861edb4d4e656739ea08d4f993e54becb9f2e9ab2"
+PKG_VERSION="a9ea3d0"
+PKG_SHA256="f2e78cd6b1ede3402a8dae56e3f8f22994ae3b17d2abc38b345e1fb801021794"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://git.linuxtv.org/media_build.git"
