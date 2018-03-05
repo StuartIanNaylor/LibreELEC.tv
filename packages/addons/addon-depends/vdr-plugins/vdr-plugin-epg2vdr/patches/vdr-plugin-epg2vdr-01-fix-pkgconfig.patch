@@ -1,0 +1,53 @@
+--- a/Makefile
++++ b/Makefile
+@@ -70,7 +70,7 @@ LIBS  = $(HLIB)
+ LIBS += -lrt -larchive -lcrypto
+ LIBS += $(shell pkg-config --libs uuid)
+ LIBS += $(shell pkg-config --libs tinyxml2)
+-LIBS += $(shell mysql_config --libs_r) $(shell python-config --libs) $(shell pkg-config --libs jansson)
++LIBS += $(shell mysql_config --libs_r) $(shell pkg-config --libs python) $(shell pkg-config --libs jansson)
+ 
+ EPG2VDR_DATA_DIR = "/var/cache/vdr"
+ 
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -40,7 +40,7 @@ ifdef USEEPGS
+ endif
+ 
+ ifdef USEPYTHON
+-	BASELIBS += $(shell python-config --libs)
++	BASELIBS += $(shell pkg-config --libs python)
+    LIBOBJS += python.o
+ endif
+ 
+@@ -57,7 +57,7 @@ CFLAGS += $(shell mysql_config --include)
+ DEFINES += $(USES)
+ 
+ ifdef USEPYTHON
+-	CFLAGS += $(shell python-config --includes)
++	CFLAGS += $(shell pkg-config --cflags python)
+ endif
+ 
+ all: lib $(TEST) $(DEMO)
+--- a/update.h
++++ b/update.h
+@@ -8,7 +8,7 @@
+ #ifndef __UPDATE_H
+ #define __UPDATE_H
+ 
+-#include <mysql/mysql.h>
++#include <mysql.h>
+ #include <queue>
+ 
+ #include <vdr/status.h>
+--- a/lib/db.h
++++ b/lib/db.h
+@@ -16,7 +16,7 @@
+ #include <stdarg.h>
+ #include <errno.h>
+ 
+-#include <mysql/mysql.h>
++#include <mysql.h>
+ 
+ #include <list>
+ 

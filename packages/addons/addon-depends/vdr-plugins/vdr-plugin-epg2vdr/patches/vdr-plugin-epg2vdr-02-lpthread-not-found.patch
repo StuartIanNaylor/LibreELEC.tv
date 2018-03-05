@@ -1,0 +1,12 @@
+--- a/Makefile
++++ b/Makefile
+@@ -159,7 +159,8 @@ install-i18n: $(I18Nmsgs)
+ ### Targets:
+ 
+ $(SOFILE): hlib $(OBJS)
+-	$(CC) $(LDFLAGS) -shared $(OBJS) $(LIBS) -o $@
++	@echo LD $@
++	$(Q)$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) $(LIBS) -o $@
+ 
+ install-lib: $(SOFILE)
+ 	install -D -m644 $^ $(DESTDIR)$(LIBDIR)/$^.$(APIVERSION)
