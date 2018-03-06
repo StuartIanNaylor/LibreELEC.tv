@@ -148,3 +148,7 @@ msgstr ""
 msgctxt "#30035"
 msgid "Enable Debug Log"
 msgstr ""
+
+msgctxt "#30036"
+msgid "Enable plugin: EPG2VDR"
+msgstr ""

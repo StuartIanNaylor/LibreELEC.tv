@@ -142,6 +142,9 @@ fi
 if [ "$ENABLE_DDCI2" == "true" ] ; then
   VDR_ARG="$VDR_ARG -P ddci2"
 fi
+if [ "$ENABLE_EPG2VDR" == "true" ] ; then
+  VDR_ARG="$VDR_ARG -P epg2vdr"
+fi
 
 if [ ! -d "$ADDON_HOME/epgimages" ]; then
   mkdir -p "$ADDON_HOME/epgimages"

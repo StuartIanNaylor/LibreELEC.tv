@@ -25,7 +25,7 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://libreelec.tv"
 PKG_URL=""
-PKG_DEPENDS_TARGET="toolchain vdr vdr-plugin-ddci2 vdr-plugin-dummydevice vdr-plugin-dvbapi vdr-plugin-eepg vdr-plugin-epgfixer \
+PKG_DEPENDS_TARGET="toolchain vdr vdr-plugin-ddci2 vdr-plugin-dummydevice vdr-plugin-dvbapi vdr-plugin-epg2vdr vdr-plugin-eepg vdr-plugin-epgfixer \
                     vdr-plugin-epgsearch vdr-plugin-iptv vdr-plugin-live vdr-plugin-restfulapi vdr-plugin-robotv vdr-plugin-satip \
                     vdr-plugin-streamdev vdr-plugin-vnsiserver vdr-plugin-wirbelscan vdr-plugin-wirbelscancontrol vdr-plugin-xmltv2vdr"
 PKG_SECTION="service.multimedia"
@@ -84,6 +84,7 @@ addon() {
   cp -PR $VDR_PLUGIN_RESTFULAPI_DIR/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
   cp -PR $(get_build_dir vdr-plugin-robotv)/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
   cp -PR $(get_build_dir vdr-plugin-ddci2)/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
+  cp -PR $(get_build_dir vdr-plugin-epg2vdr)/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
 
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/config/plugins/eepg
 

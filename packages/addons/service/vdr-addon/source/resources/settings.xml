@@ -23,6 +23,7 @@
                 <setting id="ENABLE_DDCI2" type="bool" label="30032" default="false" />
                 <setting id="ENABLE_DUMMYDEVICE" type="bool" label="30020" default="false" />
                 <setting id="ENABLE_SOFTCAM" type="bool" label="30013" default="false" />
+                <setting id="ENABLE_EPG2VDR" type="bool" label="30036" default="false" />
                 <setting id="ENABLE_EPGFIXER" type="bool" label="30022" default="false" />
                 <setting id="ENABLE_EPGSEARCH" type="bool" label="30017" default="false" />
                 <setting id="ENABLE_EEPG" type="bool" label="30019" default="false" />
