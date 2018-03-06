@@ -1,0 +1,30 @@
+# Kodi Media Center language file
+# Addon Name: touchscreen
+# Addon id: service.touchscreen
+# Addon Provider: Team LibreELEC
+msgid ""
+msgstr ""
+
+msgctxt "#30000"
+msgid "General"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Recalibrate after reboot"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Clean screen"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Touchscreen"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Now you can safely clean the screen."
+msgstr ""
+
+msgctxt "#30005"
+msgid "Still %d seconds left."
+msgstr ""
