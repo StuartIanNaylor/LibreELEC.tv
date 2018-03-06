@@ -62,7 +62,20 @@ pack_addon() {
         return 0
       fi
     fi
+
     cd $ADDON_BUILD
+    echo "*** installing translation files ***"
+    # copy base language file
+    if [ -f $(get_build_dir addon-translation)/$PKG_NAME/English/strings.po ]; then
+      mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/resources/language
+      cp -R $(get_build_dir addon-translation)/$PKG_NAME/English $ADDON_BUILD/$PKG_ADDON_ID/resources/language
+
+      # copy all available translations
+      if [ -f $(get_build_dir addon-translation)/$PKG_NAME/languages ]; then
+        cp -R $(get_build_dir addon-translation)/$PKG_NAME/languages/* $ADDON_BUILD/$PKG_ADDON_ID/resources/language
+      fi
+    fi
+
     echo "*** compressing Addon $PKG_ADDON_ID ... ***"
     $TOOLCHAIN/bin/7za a -l -mx9 -bsp0 -bso0 -tzip $PKG_ADDON_ID-$ADDONVER.zip $PKG_ADDON_ID
     cd - &>/dev/null
