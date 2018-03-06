@@ -1,5 +1,7 @@
 # Kodi Media Center language file
-# Addon Name: service.rsyslog
+# Addon Name: rsyslog
+# Addon id: service.rsyslog
+# Addon Provider: Team LibreELEC
 msgid ""
 msgstr ""
 
