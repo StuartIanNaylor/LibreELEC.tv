@@ -1,0 +1,190 @@
+# Kodi Media Center language file
+# Addon Name: proftpd
+# Addon id: service.proftpd
+# Addon Provider: Team LibreELEC
+msgid ""
+msgstr ""
+
+msgctxt "#30000"
+msgid "General"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Allow Overwrite"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Port"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Max Clients"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Max Clients per Host"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Max Hosts per User"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Max Instances"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Umask"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Server Name"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Server Ident"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Server Ident Text"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Allow Store Restart"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Allow Retrieve Restart"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Allow Root Login"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Debug level"
+msgstr ""
+
+msgctxt "#30017"
+msgid "User"
+msgstr ""
+
+msgctxt "#30018"
+msgid "Hash Algorithm"
+msgstr ""
+
+msgctxt "#30019"
+msgid "Username 1"
+msgstr ""
+
+msgctxt "#30020"
+msgid "User Password 1"
+msgstr ""
+
+msgctxt "#30021"
+msgid "User Path 1"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Username 2"
+msgstr ""
+
+msgctxt "#30023"
+msgid "User Password 2"
+msgstr ""
+
+msgctxt "#30024"
+msgid "User Path 2"
+msgstr ""
+
+msgctxt "#30025"
+msgid "Username 3"
+msgstr ""
+
+msgctxt "#30026"
+msgid "User Password 3"
+msgstr ""
+
+msgctxt "#30027"
+msgid "User Path 3"
+msgstr ""
+
+msgctxt "#30028"
+msgid "Username 4"
+msgstr ""
+
+msgctxt "#30029"
+msgid "User Password 4"
+msgstr ""
+
+msgctxt "#30030"
+msgid "User Path 4"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Username 5"
+msgstr ""
+
+msgctxt "#30032"
+msgid "User Password 5"
+msgstr ""
+
+msgctxt "#30033"
+msgid "User Path 5"
+msgstr ""
+
+msgctxt "#30034"
+msgid "TLS"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Allow TLS Engine"
+msgstr ""
+
+msgctxt "#30036"
+msgid "TLS Required"
+msgstr ""
+
+msgctxt "#30037"
+msgid "Certificat Lifetime (Days)"
+msgstr ""
+
+msgctxt "#30038"
+msgid "Certificat Hash Algorithm"
+msgstr ""
+
+msgctxt "#30039"
+msgid "Certificat Cryptosystem"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Certificat Bit-Strength"
+msgstr ""
+
+msgctxt "#30041"
+msgid "FXP"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Allow Foreign Address"
+msgstr ""
+
+msgctxt "#30043"
+msgid "Passive Portrange Start"
+msgstr ""
+
+msgctxt "#30044"
+msgid "Passive Portrange End"
+msgstr ""
+
+msgctxt "#30045"
+msgid "Enable Masquerade Address"
+msgstr ""
+
+msgctxt "#30046"
+msgid "Masquerade Address"
+msgstr ""
