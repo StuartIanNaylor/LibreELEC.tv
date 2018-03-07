@@ -1,0 +1,54 @@
+From 4f6c8126d81b4a4e0a6b98404edf8173f67bad12 Mon Sep 17 00:00:00 2001
+From: cvh <namerp@googlemail.com>
+Date: Wed, 7 Mar 2018 19:33:56 +0100
+Subject: [PATCH] [media] dw2102: Hauppauge WinTV NOVA HD support
+
+---
+ drivers/media/usb/dvb-usb/dw2102.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/dvb-usb/dw2102.c b/drivers/media/usb/dvb-usb/dw2102.c
+index b421329..fc6a36c 100644
+--- a/drivers/media/usb/dvb-usb/dw2102.c
++++ b/drivers/media/usb/dvb-usb/dw2102.c
+@@ -1749,7 +1749,8 @@ enum dw2102_table_entry {
+ 	TEVII_S482_1,
+ 	TEVII_S482_2,
+ 	TERRATEC_CINERGY_S2_BOX,
+-	TEVII_S662
++	TEVII_S662,
++	HAUPPAUGE_WINTV_NOVAHD
+ };
+ 
+ static struct usb_device_id dw2102_table[] = {
+@@ -1781,6 +1782,7 @@ static struct usb_device_id dw2102_table[] = {
+ 	[TEVII_S482_2] = {USB_DEVICE(0x9022, 0xd484)},
+ 	[TERRATEC_CINERGY_S2_BOX] = {USB_DEVICE(USB_VID_TERRATEC, 0x0105)},
+ 	[TEVII_S662] = {USB_DEVICE(0x9022, USB_PID_TEVII_S662)},
++	[HAUPPAUGE_WINTV_NOVAHD] = {USB_DEVICE(USB_VID_HAUPPAUGE, 0xd901)},
+ 	{ }
+ };
+ 
+@@ -2307,7 +2309,7 @@ static struct dvb_usb_device_properties tt_s2_4600_properties = {
+ 		} },
+ 		}
+ 	},
+-	.num_device_descs = 5,
++	.num_device_descs = 6,
+ 	.devices = {
+ 		{ "TechnoTrend TT-connect S2-4600",
+ 			{ &dw2102_table[TECHNOTREND_S2_4600], NULL },
+@@ -2329,6 +2331,10 @@ static struct dvb_usb_device_properties tt_s2_4600_properties = {
+ 			{ &dw2102_table[TEVII_S662], NULL },
+ 			{ NULL },
+ 		},
++		{ "Hauppauge WinTV NOVA HD",
++			{ &dw2102_table[HAUPPAUGE_WINTV_NOVAHD], NULL },
++			{ NULL },
++		},
+ 	}
+ };
+ 
+-- 
+2.14.1
+
