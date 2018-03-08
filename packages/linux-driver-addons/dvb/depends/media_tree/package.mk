@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="media_tree"
-PKG_VERSION="2018-02-26-15ea2df91437"
-PKG_SHA256="b99353497fcae12a39c1e455fa89667216901605ea6ef8172482cd4f38857747"
+PKG_VERSION="2018-03-07-e68854a2588a"
+PKG_SHA256="25afaf1ff104d4426eaf8c4f5cb6b1567700547c20ec8dce01c98d2c93a56197"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://git.linuxtv.org/media_tree.git"
