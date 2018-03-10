@@ -1,0 +1,37 @@
+From 5aa9eb8a5b6e779d7f054e4ee59272d3051b0805 Mon Sep 17 00:00:00 2001
+From: cvh <namerp@googlemail.com>
+Date: Thu, 8 Mar 2018 23:01:51 +0100
+Subject: [PATCH] debug
+
+---
+ drivers/media/dvb-frontends/m88ds3103.c | 1 +
+ drivers/media/dvb-frontends/ts2020.c    | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/drivers/media/dvb-frontends/m88ds3103.c b/drivers/media/dvb-frontends/m88ds3103.c
+index 50bce68..39ba694 100644
+--- a/drivers/media/dvb-frontends/m88ds3103.c
++++ b/drivers/media/dvb-frontends/m88ds3103.c
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include "m88ds3103_priv.h"
++#define DEBUG 1
+ 
+ static const struct dvb_frontend_ops m88ds3103_ops;
+ 
+diff --git a/drivers/media/dvb-frontends/ts2020.c b/drivers/media/dvb-frontends/ts2020.c
+index 931e5c9..ea48600 100644
+--- a/drivers/media/dvb-frontends/ts2020.c
++++ b/drivers/media/dvb-frontends/ts2020.c
+@@ -24,6 +24,7 @@
+ #include <linux/regmap.h>
+ #include <linux/math64.h>
+ 
++#define DEBUG 1
+ #define TS2020_XTAL_FREQ   27000 /* in kHz */
+ #define FREQ_OFFSET_LOW_SYM_RATE 3000
+ 
+-- 
+2.14.1
+
