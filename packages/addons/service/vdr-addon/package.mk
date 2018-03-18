@@ -45,6 +45,8 @@ addon() {
   VDR_PLUGIN_STREAMVEV_DIR="$(get_build_dir vdr-plugin-streamdev)"
   VDR_PLUGIN_XMLTV2VDR="$(get_build_dir vdr-plugin-xmltv2vdr)"
   VDR_PLUGIN_EPGFIXER_DIR="$(get_build_dir vdr-plugin-epgfixer)"
+  VDR_PLUGIN_EPG2VDR_DIR="$(get_build_dir vdr-plugin-epg2vdr)"
+
   VDR_PLUGIN_RESTFULAPI_DIR="$(get_build_dir vdr-plugin-restfulapi)"
 
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/config
@@ -84,7 +86,7 @@ addon() {
   cp -PR $VDR_PLUGIN_RESTFULAPI_DIR/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
   cp -PR $(get_build_dir vdr-plugin-robotv)/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
   cp -PR $(get_build_dir vdr-plugin-ddci2)/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
-  cp -PR $(get_build_dir vdr-plugin-epg2vdr)/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
+  cp -PR $VDR_PLUGIN_EPG2VDR_DIR/libvdr*.so.* $ADDON_BUILD/$PKG_ADDON_ID/plugin
 
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/config/plugins/eepg
 
@@ -103,6 +105,9 @@ addon() {
 
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/config/plugins/epgfixer
   cp -PR $VDR_PLUGIN_EPGFIXER_DIR/epgfixer/*.conf $ADDON_BUILD/$PKG_ADDON_ID/config/plugins/epgfixer
+
+  mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/config/plugins/epg2vdr
+  cp -PR $VDR_PLUGIN_EPG2VDR_DIR/configs/epg.dat $ADDON_BUILD/$PKG_ADDON_ID/config/plugins/epg2vdr
 
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/res/plugins/restfulapi
   cp -P $VDR_PLUGIN_RESTFULAPI_DIR/web/* $ADDON_BUILD/$PKG_ADDON_ID/res/plugins/restfulapi
