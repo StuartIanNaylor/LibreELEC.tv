@@ -1,5 +1,6 @@
 ################################################################################
-#      This file is part of OpenELEC - http://www.openelec.tv
+#      This file is part of LibreELEC - https://libreelec.tv
+#      Copyright (C) 2017-present Team LibreELEC
 #      Copyright (C) 2009-2016 Stephan Raue (stephan@openelec.tv)
 #
 #  OpenELEC is free software: you can redistribute it and/or modify
@@ -17,8 +18,8 @@
 ################################################################################
 
 PKG_NAME="LibreELEC-settings"
-PKG_VERSION="0ec74f6"
-PKG_SHA256="f9e5a1ead9c1a3832122deb4831980dac87ec3b8f748e6449b6b090c40f09249"
+PKG_VERSION="a562ed0"
+PKG_SHA256="98f2d5aa3ef3d422a359fc0a10e2c50efc14d3eaf351312b3aceea449a0ff151"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://libreelec.tv"
