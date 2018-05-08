@@ -60,9 +60,9 @@ case "$LINUX" in
     PKG_URL="https://github.com/raspberrypi/linux/archive/$PKG_VERSION.tar.gz"
     ;;
   *)
-    PKG_VERSION="4.14.37"
-    PKG_SHA256="8197e7ed3620713e412905430a7bf93e2048384042ffba189a66f0eeb6908e92"
-    PKG_URL="https://www.kernel.org/pub/linux/kernel/v4.x/$PKG_NAME-$PKG_VERSION.tar.xz"
+    PKG_VERSION="4.17-rc4"
+    PKG_SHA256="22091b41d59c4d5827b18f8f94cd487ab8b46ffd553b0da9c69caefefe8564f8"
+    PKG_URL="https://git.kernel.org/torvalds/t/$PKG_NAME-$PKG_VERSION.tar.gz"
     PKG_PATCH_DIRS="default"
     ;;
 esac
