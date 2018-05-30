@@ -107,7 +107,7 @@ PKG_CONFIGURE_OPTS_TARGET="$PKG_CAIRO_CONFIG \
                            --disable-tee \
                            --disable-xml \
                            --enable-pthread \
-                           --disable-gobject \
+                           --enable-gobject \
                            --disable-full-testing \
                            --disable-trace \
                            --enable-interpreter \
