@@ -25,8 +25,6 @@ PKG_ARCH="none"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-game/game.libretro.craft"
 PKG_DEPENDS_TARGET="toolchain kodi-platform libretro-craft"
-PKG_SECTION=""
-PKG_SHORTDESC="game.libretro.craft: A simple Minecraft clone"
 PKG_LONGDESC="game.libretro.2048: A simple Minecraft clone"
 
 PKG_IS_ADDON="yes"
