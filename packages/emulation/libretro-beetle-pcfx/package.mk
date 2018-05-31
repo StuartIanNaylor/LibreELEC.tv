@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="libretro-beetle-pcfx"
-PKG_VERSION="11be243"
-PKG_SHA256="ae020825ca7f50686daad87ab68a20a11ffc1d8b96b662308b512a607ad34b37"
+PKG_VERSION="1767dd1"
+PKG_SHA256="c4af851558c3460d51a9f2c68adbcc8e4ee7bc81468196c229dfcb0a312a8722"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/beetle-pcfx-libretro"

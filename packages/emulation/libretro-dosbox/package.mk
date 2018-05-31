@@ -17,8 +17,8 @@
 ################################################################################
 
 PKG_NAME="libretro-dosbox"
-PKG_VERSION="9590645"
-PKG_SHA256="8207abddc74d1e658caf53f0066561a9eacb50dc4f0042fe3e66dd8b947d9e84"
+PKG_VERSION="bedd6e8"
+PKG_SHA256="e4d6366b23da5e636554a8bd3e73af80c8faa1ba4ce93ad642c8a62ce7e6cba8"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/dosbox-libretro"

@@ -17,9 +17,9 @@
 ################################################################################
 
 PKG_NAME="game.libretro.4do"
-PKG_VERSION="d51afc5"
-PKG_SHA256="ad37ec87a0d0d891fc75858329841dcf1725689fb8964f6e1767241b8a9edf7f"
-PKG_REV="105"
+PKG_VERSION="e768592"
+PKG_SHA256="28466d59c14ece382b919a8e894aa3e9aad94469c3a3f176f56042f73d676a59"
+PKG_REV="106"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-game/game.libretro.4do"
