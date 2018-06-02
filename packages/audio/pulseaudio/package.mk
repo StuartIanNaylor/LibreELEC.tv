@@ -99,7 +99,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
 
 pre_configure_target()
 {
-  LDFLAGS="$LDFLAGS -lavutil"
+  #LDFLAGS="$LDFLAGS -lavutil"
   sed -e 's|; remixing-use-all-sink-channels = yes|; remixing-use-all-sink-channels = no|' \
       -i $PKG_BUILD/src/daemon/daemon.conf.in
 }
