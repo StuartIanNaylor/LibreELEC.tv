@@ -30,4 +30,4 @@ PKG_SECTION="x11/lib"
 PKG_LONGDESC="X11 Cursor management library"
 PKG_BUILD_FLAGS="+pic"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-shared --enable-static"
+PKG_CONFIGURE_OPTS_TARGET="--enable-shared --enable-static"
