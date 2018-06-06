@@ -32,5 +32,5 @@ PKG_LONGDESC="ATK provides the set of accessibility interfaces that are implemen
 PKG_TOOLCHAIN="autotools"
 PKG_BUILD_FLAGS="+pic"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared \
+PKG_CONFIGURE_OPTS_TARGET="--enable-static --enable-shared \
                            --disable-rebuilds --enable-introspection=no"
