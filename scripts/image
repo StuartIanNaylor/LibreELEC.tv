@@ -301,7 +301,7 @@ if [ "$1" = "release" -o "$1" = "mkimage" -o "$1" = "amlpkg" -o "$1" = "noobs" ]
   fi
 
   mkdir -p $RELEASE_DIR/licenses
-  cp $ROOT/licenses/* $RELEASE_DIR/licenses
+  cp $(get_build_dir licenses)/le/* $RELEASE_DIR/licenses
 
   mkdir -p $RELEASE_DIR/target
   cp $TARGET_IMG/$IMAGE_NAME.system $RELEASE_DIR/target/SYSTEM
@@ -519,7 +519,7 @@ if [ "$1" = "release" -o "$1" = "mkimage" -o "$1" = "amlpkg" -o "$1" = "noobs" ]
 
     # copy additional files
     mkdir -p $RELEASE_DIR/${NOOBS_DISTRO}/System/licenses
-    cp $ROOT/licenses/* $RELEASE_DIR/${NOOBS_DISTRO}/System/licenses
+    cp $(get_build_dir licenses)/le/* $RELEASE_DIR/${NOOBS_DISTRO}/System/licenses
 
     # create Storage dir
     mkdir -p $RELEASE_DIR/${NOOBS_DISTRO}/Storage
