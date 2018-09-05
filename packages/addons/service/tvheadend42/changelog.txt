@@ -1,6 +1,6 @@
 116
 - added comskip
-- update to 4.2.6.16
+- update to 4.2.6-29
 - fix for AVM IPs were not set correctly
 
 115

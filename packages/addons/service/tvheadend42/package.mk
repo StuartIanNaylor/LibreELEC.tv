@@ -2,15 +2,14 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="tvheadend42"
-PKG_VERSION="42e737f28f511c53e7321774085c8761af41371a"
-PKG_SHA256="bd9e9b66f8a360c1cbea6d466f50112371350ba904de5df8f69d18d98f8e800a"
-PKG_VERSION_NUMBER="4.2.6-16"
+PKG_VERSION="e59dcde7a7afb9372dc27af5a137714e7f76db63"
+PKG_SHA256="b2f92cb167f5c0b786466155ed88c8bfa7a995a1790418b8b68ebc5055a64956"
+PKG_VERSION_NUMBER="4.2.6-29"
 PKG_REV="116"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.tvheadend.org"
 PKG_URL="https://github.com/tvheadend/tvheadend/archive/$PKG_VERSION.tar.gz"
-PKG_SOURCE_DIR="tvheadend-*"
 PKG_DEPENDS_TARGET="toolchain avahi comskip curl dvb-apps ffmpegx libdvbcsa libhdhomerun \
                     libiconv openssl pngquant:host Python2:host tvh-dtv-scan-tables"
 PKG_SECTION="service"
